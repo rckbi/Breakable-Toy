@@ -29,12 +29,14 @@ class User extends uniqueFunc(Model) {
       required: ["userName", "email"],
 
       properties: {
-        userName: { type: "string", minLength: 2, maxLength: 20 },
-        email: { type: "string", pattern: "^\\S+@\\S+\\.\\S+$" },
+        userName: { type: "string" },
+        email: { type: "string" },
         cryptedPassword: { type: "string" },
       },
     };
   }
+
+  // relationmapping
 
   $formatJson(json) {
     const serializedJson = super.$formatJson(json);

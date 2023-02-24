@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const PracticeTile = ({ id, name, userId }) => {
-  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const getUser = async () => {
     try {
@@ -13,7 +13,7 @@ const PracticeTile = ({ id, name, userId }) => {
         throw error;
       }
       const parsedUser = await response.json();
-      setUserName(parsedUser.user.userName);
+      setUserEmail(parsedUser.user.email);
     } catch (err) {
       console.error(`Error in fetch: ${err.message}`);
     }

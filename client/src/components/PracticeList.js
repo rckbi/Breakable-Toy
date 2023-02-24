@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import PracticeTile from "./ PracticeTile";
 
 const PracticeListPage = (props) => {
   const [practices, setPractices] = useState([]);

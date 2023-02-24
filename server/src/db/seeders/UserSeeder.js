@@ -5,7 +5,7 @@ class UserSeeder {
     await User.query().delete();
 
     const firstUser = await User.query().insert({
-      userName: "ricky",
+      userName: "rckbi",
       email: "fakeemail@gmail.com",
       cryptedPassword: "1234",
     });

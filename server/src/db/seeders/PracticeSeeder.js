@@ -4,7 +4,7 @@ class PracticeSeeder {
   static async seed() {
     await Practice.query().delete();
 
-    const firstUser = await User.query().findOne({ userName: "ricky" });
+    const firstUser = await User.query().findOne({ userName: "rckbi" });
     const secondUser = await User.query().findOne({ userName: "michelle" });
     const thirdUser = await User.query().findOne({ userName: "justin" });
     const fourthUser = await User.query().findOne({ userName: "nyck" });
