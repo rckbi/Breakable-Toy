@@ -1,20 +1,16 @@
 import express from "express";
 import objection from "objection";
 import { Practice } from "../../../models/index.js";
-//import practiceSetsRouter from "./practiceSetsRouter";
+const { ValidationError } = objection;
+import SetSerializer from "../../../serializers/SetSerializer.js";
+import cleanUserInput from "../../../services/cleanUserInput.js";
+import practiceSetsRouter from "./practiceSetsRouter.js";
 
 const practicesRouter = new express.Router();
 
 practicesRouter.get("/", async (req, res) => {
   try {
     const practices = await Practice.query();
-
-    // # Nick Notes
-    // we instead want to only see practices for the current user.
-    // the below code should work....if you add a relationmapping to your user model to link it with practices
-
-    // const user = req.user;
-    // const practices = await user.$relatedQuery("practices");
     return res.status(200).json({ practices: practices });
   } catch (error) {
     return res.status(500).json({ errors: error });
@@ -25,7 +21,11 @@ practicesRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const practice = await Practice.query().findById(id);
-    // const sets = await practice.$relatedQuery("sets");
+    const sets = await practice.$relatedQuery("sets");
+    const serializedSets = await Promise.all(
+      sets.map(async (set) => await SetSerializer.getSummary(set))
+    );
+    meme.reviews = serializedSets;
     return res.status(200).json({ practice: practice });
   } catch (error) {
     return res.status(500).json({ errors: error });
@@ -50,6 +50,6 @@ practicesRouter.post("/", async (req, res) => {
   }
 });
 
-//practicesRouter.use("/:practiceId/sets", practiceSetsRouter);
+practicesRouter.use("/:practiceId/sets", practiceSetsRouter);
 
 export default practicesRouter;

@@ -1,30 +1,21 @@
 import express from "express";
 import objection from "objection";
 const { ValidationError } = objection;
-import { Set } from "../../../models/index.js";
 import cleanUserInput from "../../../services/cleanUserInput.js";
+import { Set } from "../../../models/index.js";
 
-const practiceSetsRouter = new express.Router();
+const practiceSetsRouter = new express.Router({ mergeParams: true });
 
-practiceSetsRouter.delete("/:id", async (req, res) => {
-  try {
-    const setId = req.params.id;
-    await Set.query().deleteById(setId);
-    res.status(204).json({ message: "Set successfully deleted" });
-  } catch (error) {
-    return res.status(500).json({ errors: error });
-  }
-});
-
-practiceSetsRouter.patch("/:id", async (req, res) => {
+practiceSetsRouter.post("/", async (req, res) => {
   const { body } = req;
   const formInput = cleanUserInput(body);
   const { content } = formInput;
-  const setId = req.params.id;
+  const { practiceId } = req.params;
+  const userId = req.user.id;
 
   try {
-    const editedSet = await Set.query().patchAndFetchById(setId, { content });
-    return res.status(200).json({ set: editedSet });
+    const newSet = await Set.query().insertAndFetch({ content, practiceId, userId });
+    return res.status(201).json({ practice: newSet });
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data });

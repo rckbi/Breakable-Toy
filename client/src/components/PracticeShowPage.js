@@ -99,7 +99,7 @@ const PracticeShowPage = (props) => {
     <div className="grid-container">
       <div className="grid-x grid-margin-x align-center">
         <div className="cell medium-6">
-          <h1>{practice.title}</h1>
+          <h1>{practice.name}</h1>
           <ul>{setTileComponents}</ul>
           <ErrorList errors={errors} />
           {form}

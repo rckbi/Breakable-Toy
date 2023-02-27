@@ -33,6 +33,12 @@ const App = (props) => {
         <Route exact path="/users/new" component={RegistrationForm} />
         <Route exact path="/user-sessions/new" component={SignInForm} />
         <Route exact path="/" component={PracticeList} />
+        <Route exact path="/practices/new" component={NewPracticeForm} />
+        <Route
+          exact
+          path="/practices/:id"
+          render={(props) => <PracticeShowPage {...props} currentUser={currentUser} />}
+        />
       </Switch>
     </Router>
   );

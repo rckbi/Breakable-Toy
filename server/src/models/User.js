@@ -36,8 +36,6 @@ class User extends uniqueFunc(Model) {
     };
   }
 
-  // relationmapping
-
   $formatJson(json) {
     const serializedJson = super.$formatJson(json);
 

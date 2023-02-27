@@ -16,6 +16,14 @@ class Practice extends Model {
           to: "users.id",
         },
       },
+      sets: {
+        relation: Model.HasManyRelation,
+        modelClass: Set,
+        join: {
+          from: "practices.id",
+          to: "sets.practiceId",
+        },
+      },
     };
   }
   static get jsonSchema() {
